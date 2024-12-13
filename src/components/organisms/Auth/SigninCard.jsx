@@ -7,23 +7,25 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 
-export const SignupCard = ({ 
-    signupForm, 
-    setSignupForm, 
-    validationError, 
-    onSignupFormSubmit,
+export const SigninCard = ({
+    signinForm,
+    setSigninForm,
+    onSigninFormSubmit,
+    validationError,
     error,
-    isPending,
-    isSuccess
+    isSuccess,
+    isPending
 }) => {
 
     const navigate = useNavigate();
 
+    
+
     return (
         <Card classname="w-full h-full">
             <CardHeader>
-                <CardTitle>Sign Up</CardTitle>
-                <CardDescription>Sign up to access your account</CardDescription>
+                <CardTitle>Sign In</CardTitle>
+                <CardDescription>Sign in to access your account</CardDescription>
 
                 {validationError && (
                     <div className='bg-destructive/15 p-4 rounded-md flex items-center gap-x-2 text-sm text-destructive mb-6'>
@@ -43,67 +45,49 @@ export const SignupCard = ({
                     <div className='bg-primary/15 p-3 rounded-md flex items-center gap-x-2 text-sm text-primary mb-5'>  
                         <FaCheck className='size-5' />
                         <p>
-                            Successfully signed up. You will be redirected to the login page in a few seconds.
+                            Successfully signed in. You will be redirected to the home page in a few seconds.
                             <LucideLoader2 className="animate-spin ml-2" />
                         </p>
                     </div>
                 )}
+
             </CardHeader>
+
             <CardContent>
-                <form className='space-y-3' onSubmit={onSignupFormSubmit}>
+                <form className='space-y-3' onSubmit={onSigninFormSubmit}>
                     <Input
+                        disabled={isPending}
                         placeholder="Email"
                         required
-                        onChange={(e) => setSignupForm({ ...signupForm, email: e.target.value })}
-                        value={signupForm.email}
                         type="email"
-                        disabled={isPending}
+                        value={signinForm.email}
+                        onChange={(e) => setSigninForm({ ...signinForm, email: e.target.value })}
                     />
                     <Input
+                        disabled={isPending}
                         placeholder="Password"
                         required
-                        onChange={(e) => setSignupForm({ ...signupForm, password: e.target.value })}
-                        value={signupForm.password}
                         type="password"
-                        disabled={isPending}
+                        value={signinForm.password}
+                        onChange={(e) => setSigninForm({ ...signinForm, password: e.target.value })}
                     />
-                    <Input
-                        placeholder="Confirm Password"
-                        required
-                        onChange={(e) => setSignupForm({ ...signupForm, confirmPassword: e.target.value })}
-                        value={signupForm.confirmPassword}
-                        type="password"
-                        disabled={false}
-                    />
-                    <Input
-                        placeholder="Your username"
-                        required
-                        onChange={(e) => setSignupForm({ ...signupForm, username: e.target.value })}
-                        value={signupForm.username}
-                        type="text"
-                        disabled={isPending}
-                    />
-                    <Button 
-                        disabled={isPending}
-                        size="lg"
-                        type="submit"
-                        className="w-full"
-                    >
+
+                    <Button className="w-full" disabled={isPending} size="lg" type="submit">    
                         Continue
                     </Button>
                 </form>
 
-                <Separator className="my-5" />
+                <Separator className='my-5' />
 
                 <p
                     className='text-s text-muted-foreground mt-4'
                 >
-                    Already have an account ? {' '}
+                    Donot have an account ? {' '}
                     <span 
                         className='text-sky-600 hover:underline cursor-pointer'
-                        onClick={() => navigate('/auth/signin')}
+                        onClick={() => navigate('/auth/signup')}
                     >
-                        Sign In
+                        Sign Up
                     </span>
                 </p>
             </CardContent>

@@ -38,7 +38,7 @@ export const Payments = () => {
                         >
                             Pay
                         </button>
-                        { isSuccess && <RenderRazorpayPopup 
+                        { isSuccess && amount && orderResponse?.id && <RenderRazorpayPopup 
                             amount={amount*100} 
                             orderId={orderResponse?.id} 
                             keyId={import.meta.env.VITE_RAZORPAY_KEY_ID}
